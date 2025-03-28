@@ -33,7 +33,7 @@ db.connect()
 // 1. GET a random tip
 app.get("/", async (req, res) => {
   try {
-    const result = await db.query("SELECT * FROM tips ORDER BY RANDOM() LIMIT 1;");
+    const result = await db.query("SELECT * FROM tips_data ORDER BY RANDOM() LIMIT 1;");
     if (result.rows.length > 0) {
       res.json(result.rows[0]);
     } else {
