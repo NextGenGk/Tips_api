@@ -7,7 +7,6 @@ dotenv.config();
 
 const app = express();
 const port = 3000;
-const masterKey = "le-na-bhai";
 
 // PostgreSQL connection
 const db = new pg.Pool({
@@ -21,13 +20,8 @@ const db = new pg.Pool({
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // 1. GET a random tip
-app.get("/api/tip", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
-    const { key } = req.query;
-    if (key !== masterKey) {
-      return res.status(403).json({ error: "Unauthorized access" });
-    }
-
     const result = await db.query("SELECT * FROM tips ORDER BY RANDOM() LIMIT 1;");
     res.json(result.rows[0]);
   } catch (error) {
